@@ -35,7 +35,9 @@ var gyro_z_list = [];
 var acc_x_list = [];
 var acc_y_list = [];
 var acc_z_list = [];
-var flex_list = [];
+var flex_l_list = [];
+var flex_r_list = [];
+var flex_c_list = [];
 
 
 
@@ -80,7 +82,9 @@ class TablePage extends React.Component {
           acc_y: imu_sens[imu_sen].acc_y[imu_log],
           acc_z: imu_sens[imu_sen].acc_z[imu_log],
           distance: imu_sens[imu_sen].distance[imu_log],
-          flex: imu_sens[imu_sen].flexL[imu_log]
+          flex_l: imu_sens[imu_sen].flexL[imu_log],
+          flex_r: imu_sens[imu_sen].flexR[imu_log],
+          flex_c: imu_sens[imu_sen].flexC[imu_log]
         });
         this.setState({ sensor: newimu });
         }
@@ -95,7 +99,9 @@ class TablePage extends React.Component {
     acc_x_list = list.map(item => item.acc_x);
     acc_y_list = list.map(item => item.acc_y);
     acc_z_list = list.map(item => item.acc_z);
-    flex_list = list.map(item => item.flex);
+    flex_l_list = list.map(item => item.flex_l);
+    flex_r_list = list.map(item => item.flex_r);
+    flex_c_list = list.map(item => item.flex_c);
     
 
   }
@@ -373,25 +379,67 @@ const genTempData = () => {
     labels: Period,
     datasets: [
       {
-        label: 'flex',
+        label: 'Flex Left',
         fill: false,
         lineTension: 0.1,
-        backgroundColor: 'rgba(75,192,192,0.4)',
-        borderColor: 'rgba(75,192,192,1)',
+        backgroundColor: 'rgba(15,192,10,0.4)',
+        borderColor: 'rgba(15,192,10,1)',
         borderCapStyle: 'butt',
         borderDash: [],
         borderDashOffset: 0.0,
         borderJoinStyle: 'miter',
-        pointBorderColor: 'rgba(75,192,192,1)',
+        pointBorderColor: 'rgba(15,192,10,1)',
         pointBackgroundColor: '#fff',
         pointBorderWidth: 1,
         pointHoverRadius: 5,
-        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+        pointHoverBackgroundColor: 'rgba(15,192,10,1)',
         pointHoverBorderColor: 'rgba(220,220,220,1)',
         pointHoverBorderWidth: 2,
         pointRadius: 1,
         pointHitRadius: 10,
-        data: flex_list,
+        data: flex_l_list,
+      },
+      {
+        label: 'Flex Right',
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: 'rgba(75,200,192,0.4)',
+        borderColor: 'rgba(75,200,192,1)',
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: 'rgba(75,200,192,1)',
+        pointBackgroundColor: '#fff',
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: 'rgba(75,200,192,1)',
+        pointHoverBorderColor: 'rgba(220,220,220,1)',
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: flex_r_list,
+      },
+      {
+        label: 'Flex Center',
+        fill: false,
+        lineTension: 0.1,
+        backgroundColor: 'rgba(140,12,20,0.4)',
+        borderColor: 'rgba(140,12,20,1)',
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: 'rgba(140,12,20,1)',
+        pointBackgroundColor: '#fff',
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: 'rgba(140,12,20,1)',
+        pointHoverBorderColor: 'rgba(220,220,220,1)',
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: flex_c_list,
       }
     ],
   };
