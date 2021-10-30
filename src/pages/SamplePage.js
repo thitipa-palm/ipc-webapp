@@ -63,25 +63,27 @@ class TablePage extends React.Component {
 
   getData = () => {
     const imu_ref = firebase.database().ref('sensor');
-    console.log(imu_ref);
+    console.log(imu_ref.child(0));
     imu_ref.once('value', (snapshot) => {
       // console.log(snapshot.key);
       let imu_sens = snapshot.val();
       let newimu = [];
       for (let imu_sen in imu_sens) {
+        for(var imu_log=0; imu_log<=49; imu_log++){
         newimu.push({
-          time: imu_sens[imu_sen].time,
-          date: imu_sens[imu_sen].date,
-          gyro_x: imu_sens[imu_sen].gyro_x,
-          gyro_y: imu_sens[imu_sen].gyro_y,
-          gyro_z: imu_sens[imu_sen].gyro_z,
-          acc_x: imu_sens[imu_sen].acc_x,
-          acc_y: imu_sens[imu_sen].acc_y,
-          acc_z: imu_sens[imu_sen].acc_z,
-          distance: imu_sens[imu_sen].distance,
-          flex: imu_sens[imu_sen].flex
+          time: imu_sens[imu_sen].time[imu_log],
+          date: imu_sens[imu_sen].date[imu_log],
+          gyro_x: imu_sens[imu_sen].gyro_x[imu_log],
+          gyro_y: imu_sens[imu_sen].gyro_y[imu_log],
+          gyro_z: imu_sens[imu_sen].gyro_z[imu_log],
+          acc_x: imu_sens[imu_sen].acc_x[imu_log],
+          acc_y: imu_sens[imu_sen].acc_y[imu_log],
+          acc_z: imu_sens[imu_sen].acc_z[imu_log],
+          distance: imu_sens[imu_sen].distance[imu_log],
+          flex: imu_sens[imu_sen].flexL[imu_log]
         });
         this.setState({ sensor: newimu });
+        }
       }
     });
     list = this.state.sensor
@@ -402,7 +404,7 @@ var loadchartOptions = {
     yAxes: [{
       ticks: {
         beginAtZero: true,
-        min: 100,
+        min: 0,
         max: 300
       },
       scaleLabel: {
@@ -498,7 +500,7 @@ var tempchartOptions = {
     yAxes: [{
       ticks: {
         beginAtZero: true,
-        min: 4000,
+        min: 2000,
         max: 4500
       },
       scaleLabel: {
