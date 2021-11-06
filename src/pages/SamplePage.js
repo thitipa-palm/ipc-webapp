@@ -162,7 +162,8 @@ class TablePage extends React.Component {
             <Card className="mb-3">
               <CardHeader>Flex Data</CardHeader>
               <CardBody>
-                <Line data={genTempData()} options={tempchartOptions} />
+                <Line data={genTempData()} options={tempchartOptions}
+                 />
               </CardBody>
             </Card>
           </Col>
@@ -374,6 +375,76 @@ const genAccelData = () => {
 //     ],
 //   };
 // };
+const genWeeklyData = () => {
+  return {
+    labels: Period,
+    datasets: [{
+      label: 'Exercise',
+      fill: true,
+      lineTension: 0.1,
+      backgroundColor: 'rgba(140,12,20,0.4)',
+      borderColor: 'rgba(140,12,20,1)',
+      borderCapStyle: 'butt',
+      borderDash: [],
+      borderDashOffset: 0.0,
+      borderJoinStyle: 'miter',
+      pointBorderColor: 'rgba(140,12,20,1)',
+      pointBackgroundColor: '#fff',
+      pointBorderWidth: 1,
+      pointHoverRadius: 5,
+      pointHoverBackgroundColor: 'rgba(140,12,20,1)',
+      pointHoverBorderColor: 'rgba(220,220,220,1)',
+      pointHoverBorderWidth: 2,
+      pointRadius: 1,
+      pointHitRadius: 10,
+      data: flex_c_list,
+    },
+      {
+        label: 'Stretches',
+        fill: true,
+        lineTension: 0.1,
+        backgroundColor: 'rgba(15,192,10,0.4)',
+        borderColor: 'rgba(15,192,10,1)',
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: 'rgba(15,192,10,1)',
+        pointBackgroundColor: '#fff',
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: 'rgba(15,192,10,1)',
+        pointHoverBorderColor: 'rgba(220,220,220,1)',
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: flex_l_list,
+      },
+      {
+        label: 'Walk',
+        fill: true,
+        lineTension: 0.1,
+        backgroundColor: 'rgba(75,200,192,0.4)',
+        borderColor: 'rgba(75,200,192,1)',
+        borderCapStyle: 'butt',
+        borderDash: [],
+        borderDashOffset: 0.0,
+        borderJoinStyle: 'miter',
+        pointBorderColor: 'rgba(75,200,192,1)',
+        pointBackgroundColor: '#fff',
+        pointBorderWidth: 1,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: 'rgba(75,200,192,1)',
+        pointHoverBorderColor: 'rgba(220,220,220,1)',
+        pointHoverBorderWidth: 2,
+        pointRadius: 1,
+        pointHitRadius: 10,
+        data: flex_r_list,
+      }
+      
+    ],
+  };
+};
 
 const genTempData = () => {
   return {
@@ -566,6 +637,31 @@ var tempchartOptions = {
   }
 }
 
+var weeklyChartOption = {
+  showScale: true,
+  pointDot: true,
+  scales: {
+    yAxes: [{
+      ticks: {
+        beginAtZero: true,
+        min: 2000,
+        max: 3000
+      },
+      scaleLabel: {
+        display: true,
+        labelString: 'Amount'
+      }
+    }],
+    xAxes: [{
+      scaleLabel: {
+        display: true,
+        labelString: 'Date'
+      }
+    }]
+  }
+}
+
 
 
 export default TablePage;
+export {genWeeklyData, weeklyChartOption};

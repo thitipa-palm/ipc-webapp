@@ -1,3 +1,4 @@
+import sit_img from 'assets/img/ipc/sit.png';
 import { AnnouncementCard, TodosCard } from 'components/Card';
 import HorizontalAvatarList from 'components/HorizontalAvatarList';
 import MapWithBubbles from 'components/MapWithBubbles';
@@ -8,6 +9,7 @@ import UserProgressTable from 'components/UserProgressTable';
 import { IconWidget, NumberWidget } from 'components/Widget';
 import { getStackLineChart, stackLineChartOptions } from 'demos/chartjs';
 import {
+  
   avatarsData,
   chartjs,
   productsData,
@@ -33,6 +35,8 @@ import {
   Button,
   Card,
   CardBody,
+  CardImg,
+  CardText,
   CardDeck,
   CardGroup,
   CardHeader,
@@ -41,8 +45,24 @@ import {
   ListGroup,
   ListGroupItem,
   Row,
+  CardImgOverlay,
 } from 'reactstrap';
 import { getColor } from 'utils/colors';
+import {TablePage, genWeeklyData, weeklyChartOption} from 'pages/SamplePage';
+import firebase from '../firebase.js';
+
+const dbRef = firebase.database().ref();
+console.log(dbRef)
+dbRef.child("sensor").get().then((snapshot) => {
+  if (snapshot.exists()) {
+    console.log(snapshot.val());
+  } else {
+    console.log("No data available");
+  }
+}).catch((error) => {
+  console.error(error);
+});
+
 
 const today = new Date();
 const lastWeek = new Date(
@@ -68,7 +88,71 @@ class DashboardPage extends React.Component {
         breadcrumbs={[{ name: 'Dashboard', active: true }]}
       >
         <Row>
-          <Col lg={3} md={6} sm={6} xs={12}>
+        <Col md={12} sm={12} xs={12} className="mb-3">
+          <Card className="flex-row">
+                <Col md={6} sm={6} xs={6} className="mb-3">
+                    <CardImg
+                      className="card-img-left"
+                      src={sit_img}
+                      style={{ width: 'auto', height: 400, display: 'block', margin: 'auto'}}
+                    />
+                </Col>
+                
+                <Col md={6} sm={6} xs={6} className="mb-3">
+                  <CardBody>
+                    <CardTitle>
+                      <h3 class="text-center">
+                        <strong>You are currently :</strong>
+                      </h3>
+                    </CardTitle>
+                    <CardText>
+                      <h1 class="text-center">
+                          <strong>Sitting</strong>
+                      </h1>
+                    </CardText>
+                      <br></br>
+                      <br></br>
+                  <Row>
+                    <Col lg={12} md={12} sm={12} xs={12} className="mb-3">
+                      <IconWidget
+                        bgColor={'success'}
+                        icon={MdThumbUp}
+                        title={<h4 class="text-center"> <strong> Very Good John </strong> </h4>}
+                        subtitle={<h5 class="text-center">  Good Posture!  </h5>}
+                      />
+                    </Col>
+                  </Row>  
+                  </CardBody>
+              </Col>
+              
+          </Card>
+        </Col>
+        </Row>
+        <Row>
+        <Col md={12} sm={12} xs={12} className="mb-3">
+          <Card className="flex-row">
+            <CardBody>
+              <CardTitle><h4> <strong>Real time suggestion</strong></h4></CardTitle>
+              <CardText>
+              Increase awareness of posture and ergonomics in everyday settings Becoming aware of posture and ergonomics at work,
+              at home, and at play is a vital step towards instilling good posture and ergonomic techniques.
+              </CardText>
+            </CardBody>
+          </Card>
+        </Col>
+        </Row>
+
+        <Row>
+        <Col xl={6} lg={12} md={12}>
+            <Card className="mb-3">
+              <CardHeader>Weekly Report</CardHeader>
+              <CardBody>
+                <Line data={genWeeklyData()} options={weeklyChartOption} />
+              </CardBody>
+            </Card>
+        </Col>
+        <Col xl={6} lg={12} md={12}>
+          <Row>
             <NumberWidget
               title="Total Profit"
               subtitle="This month"
@@ -79,47 +163,37 @@ class DashboardPage extends React.Component {
                 label: 'Last month',
               }}
             />
-          </Col>
-
-          <Col lg={3} md={6} sm={6} xs={12}>
+          </Row>
+          <br></br>
+          <br></br>
+          <Row>
             <NumberWidget
-              title="Monthly Visitors"
+              title="Total Profit"
               subtitle="This month"
-              number="5,400"
+              number="9.8k"
               color="secondary"
               progress={{
-                value: 45,
+                value: 75,
                 label: 'Last month',
               }}
             />
-          </Col>
-
-          <Col lg={3} md={6} sm={6} xs={12}>
+          </Row>
+          <br></br>
+          <br></br>
+          <Row>
             <NumberWidget
-              title="New Users"
+              title="Total Profit"
               subtitle="This month"
-              number="3,400"
+              number="9.8k"
               color="secondary"
               progress={{
-                value: 90,
+                value: 75,
                 label: 'Last month',
               }}
             />
-          </Col>
-
-          <Col lg={3} md={6} sm={6} xs={12}>
-            <NumberWidget
-              title="Bounce Rate"
-              subtitle="This month"
-              number="38%"
-              color="secondary"
-              progress={{
-                value: 60,
-                label: 'Last month',
-              }}
-            />
-          </Col>
-        </Row>
+          </Row>
+        </Col>  
+        </Row>  
 
         <Row>
           <Col lg="8" md="12" sm="12" xs="12">
@@ -133,7 +207,9 @@ class DashboardPage extends React.Component {
               </CardBody>
             </Card>
           </Col>
+        </Row>
 
+        <Row>
           <Col lg="4" md="12" sm="12" xs="12">
             <Card>
               <CardHeader>Total Expense</CardHeader>
