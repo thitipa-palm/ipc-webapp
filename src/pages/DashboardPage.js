@@ -18,7 +18,7 @@ import {
   userProgressTableData,
 } from 'demos/dashboardPage';
 import React from 'react';
-import { Bar, Line } from 'react-chartjs-2';
+import { Bar, Line, Doughnut, Pie } from 'react-chartjs-2';
 import {
   MdBubbleChart,
   MdInsertChart,
@@ -28,6 +28,7 @@ import {
   MdShare,
   MdShowChart,
   MdThumbUp,
+  MdThumbDown,
 } from 'react-icons/md';
 import InfiniteCalendar from 'react-infinite-calendar';
 import {
@@ -46,9 +47,11 @@ import {
   ListGroupItem,
   Row,
   CardImgOverlay,
+  Progress,
 } from 'reactstrap';
 import { getColor } from 'utils/colors';
 import {TablePage, genWeeklyData, weeklyChartOption} from 'pages/SamplePage';
+import {genIpcPieData} from 'pages/ChartPage';
 import firebase from '../firebase.js';
 
 const dbRef = firebase.database().ref();
@@ -62,6 +65,14 @@ dbRef.child("sensor").get().then((snapshot) => {
 }).catch((error) => {
   console.error(error);
 });
+
+const ipctodosData = [
+  { id: 1, title: 'Stand up' },
+  { id: 2, title: 'Upper-body Stretch'},
+  { id: 3, title: 'Daily Walk'},
+  { id: 4, title: 'Go Jogging :)'},
+  { id: 5, title: 'Fix Your Posture '},
+];
 
 
 const today = new Date();
@@ -145,339 +156,165 @@ class DashboardPage extends React.Component {
         <Row>
         <Col xl={6} lg={12} md={12}>
             <Card className="mb-3">
-              <CardHeader>Weekly Report</CardHeader>
+              <CardHeader><h5><strong>Weekly Report</strong></h5></CardHeader>
               <CardBody>
                 <Line data={genWeeklyData()} options={weeklyChartOption} />
               </CardBody>
             </Card>
         </Col>
-        <Col xl={6} lg={12} md={12}>
+        
+        <Col md="6" sm="12" xs="12">
           <Row>
             <NumberWidget
-              title="Total Profit"
-              subtitle="This month"
-              number="9.8k"
-              color="secondary"
+              title="Stretches Done"
+              number="20 Minutes"
+              color="primary"
               progress={{
                 value: 75,
-                label: 'Last month',
+                label: 'Completeness',
               }}
             />
           </Row>
           <br></br>
-          <br></br>
           <Row>
             <NumberWidget
-              title="Total Profit"
-              subtitle="This month"
-              number="9.8k"
-              color="secondary"
+              title="Walk"
+              number="120 Minutes"
+              color="info"
               progress={{
-                value: 75,
-                label: 'Last month',
+                value: 40,
+                label: 'Completeness',
               }}
             />
           </Row>
           <br></br>
+          <Row>
+          <NumberWidget
+              title="Good Posture"
+              number="60%"
+              color="success"
+              progress={{
+                value: 60,
+                label: 'Completeness',
+              }}
+            />
+          </Row>
           <br></br>
           <Row>
-            <NumberWidget
-              title="Total Profit"
-              subtitle="This month"
-              number="9.8k"
-              color="secondary"
+          <NumberWidget
+              title="Bad Posture"
+              number="40%"
+              color="danger"
               progress={{
-                value: 75,
-                label: 'Last month',
+                value: 40,
+                label: 'Completeness',
               }}
             />
           </Row>
         </Col>  
         </Row>  
-
+        
         <Row>
-          <Col lg="8" md="12" sm="12" xs="12">
-            <Card>
-              <CardHeader>
-                Total Revenue{' '}
-                <small className="text-muted text-capitalize">This year</small>
-              </CardHeader>
-              <CardBody>
-                <Line data={chartjs.line.data} options={chartjs.line.options} />
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col lg="4" md="12" sm="12" xs="12">
-            <Card>
-              <CardHeader>Total Expense</CardHeader>
-              <CardBody>
-                <Bar data={chartjs.bar.data} options={chartjs.bar.options} />
-              </CardBody>
-              <ListGroup flush>
-                <ListGroupItem>
-                  <MdInsertChart size={25} color={primaryColor} /> Cost of sales{' '}
-                  <Badge color="secondary">$3000</Badge>
-                </ListGroupItem>
-                <ListGroupItem>
-                  <MdBubbleChart size={25} color={primaryColor} /> Management
-                  costs <Badge color="secondary">$1200</Badge>
-                </ListGroupItem>
-                <ListGroupItem>
-                  <MdShowChart size={25} color={primaryColor} /> Financial costs{' '}
-                  <Badge color="secondary">$800</Badge>
-                </ListGroupItem>
-                <ListGroupItem>
-                  <MdPieChart size={25} color={primaryColor} /> Other operating
-                  costs <Badge color="secondary">$2400</Badge>
-                </ListGroupItem>
-              </ListGroup>
-            </Card>
-          </Col>
-        </Row>
-
-        <CardGroup style={{ marginBottom: '1rem' }}>
+        <Col xl={7} lg={12} md={12}>
+          <Card>
+            <CardHeader>Today Summary</CardHeader>
+            <CardBody>
+              <Pie data={genIpcPieData()} />
+            </CardBody>
+          </Card>
+        </Col>
+        <Col xl={5} lg={12} md={12}>
+        <Card>
+        <CardHeader><h5><strong>Your Today Stat</strong></h5></CardHeader>
+          <Row>
+          <Col lg={12} md={12} sm={12} xs={12} className="mb-3">
           <IconWidget
             bgColor="white"
             inverse={false}
             icon={MdThumbUp}
-            title="50+ Likes"
-            subtitle="People you like"
+            title="Good Posture"
+            subtitle="41%"
           />
+          </Col>
+          </Row>
+          <Row>
+          <Col lg={12} md={12} sm={12} xs={12} className="mb-3">
           <IconWidget
             bgColor="white"
             inverse={false}
-            icon={MdRateReview}
-            title="10+ Reviews"
-            subtitle="New Reviews"
+            icon={MdThumbDown}
+            title="Bad Posture"
+            subtitle="26%"
           />
+          </Col>
+          </Row>
+          <Row>
+          <Col lg={12} md={12} sm={12} xs={12} className="mb-3">
           <IconWidget
             bgColor="white"
             inverse={false}
             icon={MdShare}
-            title="30+ Shares"
-            subtitle="New Shares"
+            title="Walk"
+            subtitle="15%"
           />
-        </CardGroup>
-
-        <Row>
-          <Col md="6" sm="12" xs="12">
-            <Card>
-              <CardHeader>New Products</CardHeader>
-              <CardBody>
-                {productsData.map(
-                  ({ id, image, title, description, right }) => (
-                    <ProductMedia
-                      key={id}
-                      image={image}
-                      title={title}
-                      description={description}
-                      right={right}
-                    />
-                  ),
-                )}
-              </CardBody>
-            </Card>
           </Col>
-
-          <Col md="6" sm="12" xs="12">
-            <Card>
-              <CardHeader>New Users</CardHeader>
-              <CardBody>
-                <UserProgressTable
-                  headers={[
-                    <MdPersonPin size={25} />,
-                    'name',
-                    'date',
-                    'participation',
-                    '%',
-                  ]}
-                  usersData={userProgressTableData}
-                />
-              </CardBody>
-            </Card>
+          </Row>
+          <Row>
+          <Col lg={12} md={12} sm={12} xs={12} className="mb-3">
+          <IconWidget
+            bgColor="white"
+            inverse={false}
+            icon={MdShare}
+            title="Streches"
+            subtitle="18%"
+          />
           </Col>
-        </Row>
-
-        <Row>
-          <Col lg={4} md={4} sm={12} xs={12}>
-            <Card>
-              <Line
-                data={getStackLineChart({
-                  labels: [
-                    'January',
-                    'February',
-                    'March',
-                    'April',
-                    'May',
-                    'June',
-                    'July',
-                  ],
-                  data: [0, 13000, 5000, 24000, 16000, 25000, 10000],
-                })}
-                options={stackLineChartOptions}
-              />
-              <CardBody
-                className="text-primary"
-                style={{ position: 'absolute' }}
-              >
-                <CardTitle>
-                  <MdInsertChart /> Sales
-                </CardTitle>
-              </CardBody>
-            </Card>
-          </Col>
-
-          <Col lg={4} md={4} sm={12} xs={12}>
-            <Card>
-              <Line
-                data={getStackLineChart({
-                  labels: [
-                    'January',
-                    'February',
-                    'March',
-                    'April',
-                    'May',
-                    'June',
-                    'July',
-                  ],
-                  data: [10000, 15000, 5000, 10000, 5000, 10000, 10000],
-                })}
-                options={stackLineChartOptions}
-              />
-              <CardBody
-                className="text-primary"
-                style={{ position: 'absolute' }}
-              >
-                <CardTitle>
-                  <MdInsertChart /> Revenue
-                </CardTitle>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col lg={4} md={4} sm={12} xs={12}>
-            <Card>
-              <Line
-                data={getStackLineChart({
-                  labels: [
-                    'January',
-                    'February',
-                    'March',
-                    'April',
-                    'May',
-                    'June',
-                    'July',
-                  ],
-                  data: [0, 13000, 5000, 24000, 16000, 25000, 10000].reverse(),
-                })}
-                options={stackLineChartOptions}
-              />
-              <CardBody
-                className="text-primary"
-                style={{ position: 'absolute', right: 0 }}
-              >
-                <CardTitle>
-                  <MdInsertChart /> Profit
-                </CardTitle>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-
-        <Row>
-          <Col lg="4" md="12" sm="12" xs="12">
-            <InfiniteCalendar
-              selected={today}
-              minDate={lastWeek}
-              width="100%"
-              theme={{
-                accentColor: primaryColor,
-                floatingNav: {
-                  background: secondaryColor,
-                  chevron: primaryColor,
-                  color: '#FFF',
-                },
-                headerColor: primaryColor,
-                selectionColor: secondaryColor,
-                textColor: {
-                  active: '#FFF',
-                  default: '#333',
-                },
-                todayColor: secondaryColor,
-                weekdayColor: primaryColor,
-              }}
-            />
-          </Col>
-
-          <Col lg="8" md="12" sm="12" xs="12">
-            <Card inverse className="bg-gradient-primary">
-              <CardHeader className="bg-gradient-primary">
-                Map with bubbles
-              </CardHeader>
-              <CardBody>
-                <MapWithBubbles />
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-
-        <CardDeck style={{ marginBottom: '1rem' }}>
-          <Card body style={{ overflowX: 'auto','paddingBottom':'15px','height': 'fit-content','paddingTop': 'inherit'}}>
-            <HorizontalAvatarList
-              avatars={avatarsData}
-              avatarProps={{ size: 50 }}
-            />
+          </Row>
           </Card>
+        </Col>
+        </Row>
 
-          <Card body style={{ overflowX: 'auto','paddingBottom':'15px','height': 'fit-content','paddingTop': 'inherit'}}>
-            <HorizontalAvatarList
-              avatars={avatarsData}
-              avatarProps={{ size: 50 }}
-              reversed
-            />
-          </Card>
-        </CardDeck>
-
-        <Row>
-          <Col lg="4" md="12" sm="12" xs="12">
-            <AnnouncementCard
-              color="gradient-secondary"
-              header="Announcement"
-              avatarSize={60}
-              name="Jamy"
-              date="1 hour ago"
-              text="Lorem ipsum dolor sit amet,consectetuer edipiscing elit,sed diam nonummy euismod tinciduntut laoreet doloremagna"
-              buttonProps={{
-                children: 'show',
-              }}
-              style={{ height: 500 }}
-            />
-          </Col>
-
-          <Col lg="4" md="12" sm="12" xs="12">
-            <Card>
-              <CardHeader>
-                <div className="d-flex justify-content-between align-items-center">
-                  <span>Support Tickets</span>
-                  <Button>
-                    <small>View All</small>
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardBody>
-                {supportTicketsData.map(supportTicket => (
-                  <SupportTicket key={supportTicket.id} {...supportTicket} />
-                ))}
-              </CardBody>
-            </Card>
-          </Col>
-
-          <Col lg="4" md="12" sm="12" xs="12">
-            <TodosCard todos={todosData} />
+        <Row> 
+        <Col lg="12" md="12" sm="12" xs="12">
+        <CardHeader><h5><strong>To-Do List</strong></h5></CardHeader>
+            <TodosCard todos={ipctodosData} />
           </Col>
         </Row>
+        
+        <Row>
+        <Col xl={12} lg={12} md={12}>
+        <CardHeader><h5><strong>Recommendations</strong></h5></CardHeader>
+          <Card className="flex-row">
+            <CardImg
+              className="card-img-left"
+              src={sit_img}
+              style={{ width: 'auto', height: 150 }}
+            />
+            <CardBody>
+              <CardTitle>Horizontal Image Card(Left)</CardTitle>
+              <CardText>
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </CardText>
+            </CardBody>
+          </Card>
+          <Card className="flex-row">
+            <CardImg
+              className="card-img-left"
+              src={sit_img}
+              style={{ width: 'auto', height: 150 }}
+            />
+            <CardBody>
+              <CardTitle>Horizontal Image Card(Left)</CardTitle>
+              <CardText>
+                Some quick example text to build on the card title and make up
+                the bulk of the card's content.
+              </CardText>
+            </CardBody>
+          </Card>
+        </Col>
+        </Row>
+       
       </Page>
     );
   }

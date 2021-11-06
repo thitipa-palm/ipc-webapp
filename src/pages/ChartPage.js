@@ -70,6 +70,24 @@ const genPieData = () => {
   };
 };
 
+const genIpcPieData = () => {
+  return {
+    datasets: [
+      {
+        data: [41, 26, 15, 18],
+        backgroundColor: [
+          getColor('success'),
+          getColor('danger'),
+          getColor('info'),
+          getColor('primary'),
+        ],
+        label: 'Dataset 1',
+      },
+    ],
+     labels: ['Good Posture', 'Bad Posture', 'Walk', 'Strech'],
+  };
+};
+
 const ChartPage = () => {
   return (
     <Page title="Charts" breadcrumbs={[{ name: 'Charts', active: true }]}>
@@ -180,3 +198,4 @@ const ChartPage = () => {
 };
 
 export default ChartPage;
+export {genIpcPieData};
