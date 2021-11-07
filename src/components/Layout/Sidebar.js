@@ -1,5 +1,5 @@
 import logo200Image from 'assets/img/logo/logo_200.png';
-import sidebarBgImage from 'assets/img/sidebar/sidebar-4.jpg';
+import sidebarBgImage from 'assets/img/sidebar/sidebar-8.jpg';
 import SourceLink from 'components/SourceLink';
 import React from 'react';
 import { FaGithub } from 'react-icons/fa';
@@ -43,14 +43,10 @@ const sidebarBackground = {
   backgroundRepeat: 'no-repeat',
 };
 
+//Components Group
 const navComponents = [
   { to: '/buttons', name: 'buttons', exact: false, Icon: MdRadioButtonChecked },
-  {
-    to: '/button-groups',
-    name: 'button groups',
-    exact: false,
-    Icon: MdGroupWork,
-  },
+  { to: '/button-groups', name: 'button groups', exact: false, Icon: MdGroupWork },
   { to: '/forms', name: 'forms', exact: false, Icon: MdChromeReaderMode },
   { to: '/input-groups', name: 'input groups', exact: false, Icon: MdViewList },
   {
@@ -65,11 +61,13 @@ const navComponents = [
   { to: '/modals', name: 'modals', exact: false, Icon: MdViewDay },
 ];
 
+// Contenten Group
 const navContents = [
   { to: '/typography', name: 'typography', exact: false, Icon: MdTextFields },
   { to: '/tables', name: 'tables', exact: false, Icon: MdBorderAll },
 ];
 
+// Page Group
 const pageContents = [
   { to: '/login', name: 'login / signup', exact: false, Icon: MdAccountCircle },
   {
@@ -80,11 +78,13 @@ const pageContents = [
   },
 ];
 
+
 const navItems = [
   { to: '/', name: 'dashboard', exact: true, Icon: MdDashboard },
+  { to: '/sample', name: 'Raw Data', exact: false, Icon: MdInsertChart },
   { to: '/cards', name: 'cards', exact: false, Icon: MdWeb },
   { to: '/charts', name: 'charts', exact: false, Icon: MdInsertChart },
-  { to: '/widgets', name: 'widgets', exact: false, Icon: MdWidgets },
+  { to: '/widgets', name: 'widgets', exact: false, Icon: MdWidgets }, 
 ];
 
 const bem = bn.create('sidebar');
@@ -113,15 +113,15 @@ class Sidebar extends React.Component {
         <div className={bem.e('content')}>
           <Navbar>
             <SourceLink className="navbar-brand d-flex">
-              <img
+              {/* <img
                 src={logo200Image}
                 width="40"
                 height="30"
                 className="pr-2"
                 alt=""
-              />
+              /> */}
               <span className="text-white">
-                Reduction <FaGithub />
+                IPC Webapp <FaGithub />
               </span>
             </SourceLink>
           </Navbar>

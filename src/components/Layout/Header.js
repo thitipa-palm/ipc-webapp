@@ -5,6 +5,7 @@ import SearchInput from 'components/SearchInput';
 import { notificationsData } from 'demos/header';
 import withBadge from 'hocs/withBadge';
 import React from 'react';
+import {Redirect} from 'react-router-dom';
 import {
   MdClearAll,
   MdExitToApp,
@@ -26,9 +27,11 @@ import {
   NavItem,
   NavLink,
   Popover,
+  Badge,
   PopoverBody,
 } from 'reactstrap';
 import bn from 'utils/bemnames';
+
 
 const bem = bn.create('header');
 
@@ -75,19 +78,39 @@ class Header extends React.Component {
     document.querySelector('.cr-sidebar').classList.toggle('cr-sidebar--open');
   };
 
+  dashboardButton = () =>{ 
+    return  <Redirect to="/" /> 
+  }
+
+  rawdataButton = event => {
+    return  <Redirect to="/sample" /> 
+  };
+
   render() {
     const { isNotificationConfirmed } = this.state;
 
     return (
       <Navbar light expand className={bem.b('bg-white')}>
-        <Nav navbar className="mr-2">
+        <Nav navbar className="mr-4">
           <Button outline onClick={this.handleSidebarControlButton}>
             <MdClearAll size={25} />
           </Button>
         </Nav>
-        <Nav navbar>
-          <SearchInput />
+        <Nav navbar className="mr-2">
+          <Button color="primary" outline onClick={this.dashboardButton}>
+            User Dashboard <Badge color="primary"></Badge>
+          </Button>
         </Nav>
+        <Nav navbar className="mr-2">
+          <Button color="info" outline onClick={this.rawdataButton}>
+            Raw Data <Badge color="info"></Badge>
+          </Button>
+        </Nav>
+
+        {/* Search bar */}
+        {/* <Nav navbar>
+          <SearchInput />
+        </Nav> */}
 
         <Nav navbar className={bem.e('nav-right')}>
           <NavItem className="d-inline-flex">
@@ -135,8 +158,8 @@ class Header extends React.Component {
             >
               <PopoverBody className="p-0 border-light">
                 <UserCard
-                  title="Jane"
-                  subtitle="jane@jane.com"
+                  title="John"
+                  subtitle="john@doe.com"
                   text="Last updated 3 mins ago"
                   className="border-light"
                 >
@@ -146,12 +169,6 @@ class Header extends React.Component {
                     </ListGroupItem>
                     <ListGroupItem tag="button" action className="border-light">
                       <MdInsertChart /> Stats
-                    </ListGroupItem>
-                    <ListGroupItem tag="button" action className="border-light">
-                      <MdMessage /> Messages
-                    </ListGroupItem>
-                    <ListGroupItem tag="button" action className="border-light">
-                      <MdSettingsApplications /> Settings
                     </ListGroupItem>
                     <ListGroupItem tag="button" action className="border-light">
                       <MdHelp /> Help
