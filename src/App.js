@@ -67,11 +67,7 @@ class App extends React.Component {
                 <Route exact path="/alerts" component={AlertPage} />
                 <Route exact path="/tables" component={TablePage} />
                 <Route exact path="/badges" component={BadgePage} />
-                <Route
-                  exact
-                  path="/button-groups"
-                  component={ButtonGroupPage}
-                />
+                <Route exact path="/button-groups" component={ButtonGroupPage} />
                 <Route exact path="/dropdowns" component={DropdownPage} />
                 <Route exact path="/progress" component={ProgressPage} />
                 <Route exact path="/modals" component={ModalPage} />

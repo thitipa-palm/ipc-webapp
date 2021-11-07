@@ -107,15 +107,15 @@ class DashboardPage extends React.Component {
         <Row>
         <Col md={12} sm={12} xs={12} className="mb-3">
           <Card className="flex-row">
-                <Col md={6} sm={6} xs={6} className="mb-3">
+                <Col md={6} sm={6} xs={6} className="m-5">
                     <CardImg
                       className="card-img-left"
                       src={sit_img}
-                      style={{ width: 'auto', height: 400, display: 'block', margin: 'auto'}}
+                      style={{ width: 'auto', height: 350, display: 'block', margin: 'auto'}}
                     />
                 </Col>
                 
-                <Col md={6} sm={6} xs={6} className="mb-3">
+                <Col md={6} sm={6} xs={6} className="m-3">
                   <CardBody>
                     <CardTitle>
                       <h3 class="text-center">
@@ -130,7 +130,7 @@ class DashboardPage extends React.Component {
                       <br></br>
                       <br></br>
                   <Row>
-                    <Col lg={12} md={12} sm={12} xs={12} className="mb-3">
+                    <Col md={10} sm={10} xs={10} className="m-3">
                       <IconWidget
                         bgColor={'success'}
                         icon={MdThumbUp}
@@ -140,7 +140,7 @@ class DashboardPage extends React.Component {
                     </Col>
                   </Row>  
                   </CardBody>
-              </Col>
+                </Col>
               
           </Card>
         </Col>
