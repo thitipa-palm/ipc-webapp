@@ -34,6 +34,7 @@ import {
   MdShowChart,
   MdThumbUp,
   MdThumbDown,
+  MdLightbulbOutline
 } from 'react-icons/md';
 import InfiniteCalendar from 'react-infinite-calendar';
 import {
@@ -160,67 +161,6 @@ class DashboardPage extends React.Component {
         </Row>
 
         <Row>
-        <Col xl={6} lg={12} md={12}>
-            <Card className="mb-3">
-              <CardHeader><h5><strong>Weekly Report</strong></h5></CardHeader>
-              <CardBody>
-                <Line data={genWeeklyData()} options={weeklyChartOption} />
-              </CardBody>
-            </Card>
-        </Col>
-        
-        <Col md="6" sm="12" xs="12">
-          <Row>
-            <NumberWidget
-              title="Stretches Done"
-              number="20 Minutes"
-              color="primary"
-              progress={{
-                value: 75,
-                label: 'Completeness',
-              }}
-            />
-          </Row>
-          <br></br>
-          <Row>
-            <NumberWidget
-              title="Walk"
-              number="120 Minutes"
-              color="info"
-              progress={{
-                value: 40,
-                label: 'Completeness',
-              }}
-            />
-          </Row>
-          <br></br>
-          <Row>
-          <NumberWidget
-              title="Good Posture"
-              number="60%"
-              color="success"
-              progress={{
-                value: 60,
-                label: 'Completeness',
-              }}
-            />
-          </Row>
-          <br></br>
-          <Row>
-          <NumberWidget
-              title="Bad Posture"
-              number="40%"
-              color="danger"
-              progress={{
-                value: 40,
-                label: 'Completeness',
-              }}
-            />
-          </Row>
-        </Col>  
-        </Row>  
-        
-        <Row>
         <Col xl={7} lg={12} md={12}>
           <Card>
             <CardHeader><h5><strong>Today Summary</strong></h5></CardHeader>
@@ -229,11 +169,12 @@ class DashboardPage extends React.Component {
             </CardBody>
           </Card>
         </Col>
+        
         <Col xl={5} lg={12} md={12}>
         <Card>
-        <CardHeader><h5><strong>Your Today Stat</strong></h5></CardHeader>
+        <CardHeader><h5><strong>Your Today Stats</strong></h5></CardHeader>
           <Row>
-          <Col lg={12} md={12} sm={12} xs={12} className="mb-3">
+          <Col lg={12} md={12} sm={12} xs={12} className="mt-0">
           <IconWidget
             bgColor="white"
             inverse={false}
@@ -244,7 +185,7 @@ class DashboardPage extends React.Component {
           </Col>
           </Row>
           <Row>
-          <Col lg={12} md={12} sm={12} xs={12} className="mb-3">
+          <Col lg={12} md={12} sm={12} xs={12} className="mt-3">
           <IconWidget
             bgColor="white"
             inverse={false}
@@ -254,31 +195,90 @@ class DashboardPage extends React.Component {
           />
           </Col>
           </Row>
+          
           <Row>
-          <Col lg={12} md={12} sm={12} xs={12} className="mb-3">
-          <IconWidget
-            bgColor="white"
-            inverse={false}
-            icon={MdShare}
-            title="Walk"
-            subtitle="15%"
-          />
-          </Col>
-          </Row>
-          <Row>
-          <Col lg={12} md={12} sm={12} xs={12} className="mb-3">
-          <IconWidget
-            bgColor="white"
-            inverse={false}
-            icon={MdShare}
-            title="Streches"
-            subtitle="18%"
-          />
-          </Col>
-          </Row>
+              <Col lg={12} md={12} sm={12} xs={12} className="mt-3">
+                <IconWidget
+                  bgColor={'success'}
+                  icon={MdLightbulbOutline}
+                  title={<h4 class="text-center"> <strong> Nice posture! </strong> </h4>}
+                  subtitle={<h5 class="text-center">  You did good today  </h5>}
+                />
+              </Col>
+          </Row> 
           </Card>
         </Col>
         </Row>
+
+        <Row>
+        <Col xl={6} lg={12} md={12}>
+            <Card className="mb-3">
+              <CardHeader><h5><strong>Activity History</strong></h5></CardHeader>
+              <CardBody>
+                <Line data={genWeeklyData()} options={weeklyChartOption} />
+              </CardBody>
+            </Card>
+        </Col>
+        
+        <Col md="6" sm="12" xs="12">
+        <Card>
+        <CardHeader><h5><strong>Weekly Progress</strong></h5></CardHeader>
+          <Row>
+            <Col md="12" sm="12" xs="12">
+            <NumberWidget
+              title="Stretches Done"
+              number="20 Minutes"
+              color="primary"
+              progress={{
+                value: 75,
+                label: 'Completeness',
+              }}
+            />
+            </Col>
+          </Row>
+          <Row>
+          <Col md="12" sm="12" xs="12">
+            <NumberWidget
+              title="Walk"
+              number="120 Minutes"
+              color="info"
+              progress={{
+                value: 40,
+                label: 'Completeness',
+              }}
+            />
+          </Col>
+          </Row>
+          
+          <Row>
+          <Col md="12" sm="12" xs="12">
+          <NumberWidget
+              title="Good Posture"
+              number="60%"
+              color="success"
+              progress={{
+                value: 60,
+                label: 'Completeness',
+              }}
+            />
+          </Col>
+          </Row>
+          <Row>
+          <Col md="12" sm="12" xs="12">
+          <NumberWidget
+              title="Bad Posture"
+              number="40%"
+              color="danger"
+              progress={{
+                value: 40,
+                label: 'Completeness',
+              }}
+            />
+          </Col>
+          </Row>
+          </Card>
+        </Col>  
+        </Row>  
 
         <Row> 
         <Col lg="12" md="12" sm="12" xs="12">
@@ -297,7 +297,11 @@ class DashboardPage extends React.Component {
               style={{ width: 'auto', height: 150 }}
             />
             <CardBody>
-              <CardTitle><h7><strong>Hamstrings</strong></h7></CardTitle>
+              <CardTitle><h7><strong>Hamstrings</strong></h7>
+                <Badge color="primary" className="m-1">
+                  Yoga
+                </Badge>
+              </CardTitle>
               <CardText>
               Stand split stance and put both of your hands on the knee in front
                of you and keep the other knee straight, push your hip forwards and down 
@@ -313,7 +317,15 @@ class DashboardPage extends React.Component {
               style={{ width: 'auto', height: 150 }}
             />
             <CardBody>
-              <CardTitle><h7><strong>Upper Back Stretch</strong></h7></CardTitle>
+              <CardTitle><h7><strong>Upper Back Stretch</strong></h7>
+              <Badge color="info" className="m-1">
+                  Body Weight
+                </Badge>
+                <Badge color="primary" className="m-1">
+                  Yoga
+                </Badge>
+                </CardTitle>
+                
               <CardText>
               interlock your fingers behind your back, then lift your arms so you feel a 
               stretch in your chest and front shoulders. Draw your chin down to avoid crunching the neck.
@@ -327,7 +339,14 @@ class DashboardPage extends React.Component {
               style={{ width: 'auto', height: 150 }}
             />
             <CardBody>
-              <CardTitle><h7><strong>Wrists and forearm</strong></h7></CardTitle>
+              <CardTitle><h7><strong>Wrists and forearm</strong></h7>
+              <Badge color="warning" className="m-1">
+                  Meditaion
+                </Badge>
+                <Badge color="primary" className="m-1">
+                  Yoga
+                </Badge>
+              </CardTitle>
               <CardText>
               Perform a prayer stretch (Buddha stretch) by placing your fingers and palms 
               together with your hands in front of your chest and fingers pointing upward. 
@@ -344,7 +363,11 @@ class DashboardPage extends React.Component {
               style={{ width: 'auto', height: 150 }}
             />
             <CardBody>
-              <CardTitle><h7><strong>Hip Flexors</strong></h7></CardTitle>
+              <CardTitle><h7><strong>Hip Flexors</strong></h7>
+                <Badge color="success" className="m-1">
+                  Cardio
+                </Badge>
+                </CardTitle>
               <CardText>
               Stand tall with back straight, abs engaged, shoulders down, and feet hip-width apart. 
               Bring your left leg forward, heel down, toes up and leg straight. Keeping back straight 

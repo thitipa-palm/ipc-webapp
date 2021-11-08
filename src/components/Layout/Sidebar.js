@@ -82,9 +82,11 @@ const pageContents = [
 const navItems = [
   { to: '/', name: 'dashboard', exact: true, Icon: MdDashboard },
   { to: '/sample', name: 'Raw Data', exact: false, Icon: MdInsertChart },
+  { to: '/profile', name: 'Profile Page', exact: false, Icon: MdWidgets },
   { to: '/cards', name: 'cards', exact: false, Icon: MdWeb },
   { to: '/charts', name: 'charts', exact: false, Icon: MdInsertChart },
-  { to: '/widgets', name: 'widgets', exact: false, Icon: MdWidgets }, 
+  { to: '/widgets', name: 'widgets', exact: false, Icon: MdWidgets },
+   
 ];
 
 const bem = bn.create('sidebar');

@@ -74,17 +74,18 @@ const genIpcPieData = () => {
   return {
     datasets: [
       {
-        data: [41, 26, 15, 18],
+        data: [41, 26, 15, 10, 8],
         backgroundColor: [
           getColor('success'),
           getColor('danger'),
           getColor('info'),
           getColor('primary'),
+          getColor('warning'),
         ],
         label: 'Dataset 1',
       },
     ],
-     labels: ['Good Posture', 'Bad Posture', 'Walk', 'Strech'],
+     labels: ['Walk', 'Stretch','Sit','Stand','Run'],
   };
 };
 

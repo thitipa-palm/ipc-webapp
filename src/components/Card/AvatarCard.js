@@ -43,7 +43,7 @@ AvatarCard.propTypes = {
 };
 
 AvatarCard.defaultProps = {
-  avatarSize: 80,
+  avatarSize: 200,
 };
 
 export default AvatarCard;

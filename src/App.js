@@ -28,6 +28,7 @@ const TypographyPage = React.lazy(() => import('pages/TypographyPage'));
 const WidgetPage = React.lazy(() => import('pages/WidgetPage'));
 const GyroDataPage = React.lazy(() => import('pages/GyroPage'));
 const SamplePage = React.lazy(() => import('pages/SamplePage'));
+const ProfilePage = React.lazy(() => import('pages/ProfilePage'));
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
@@ -76,6 +77,7 @@ class App extends React.Component {
                 <Route exact path="/charts" component={ChartPage} />
                 <Route exact path="/gyro-tables" component={GyroDataPage} />
                 <Route exact path="/sample" component={SamplePage} />
+                <Route exact path="/profile" component={ProfilePage} />
               </React.Suspense>
             </MainLayout>
             <Redirect to="/" />

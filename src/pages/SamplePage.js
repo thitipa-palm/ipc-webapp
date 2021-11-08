@@ -109,8 +109,8 @@ class TablePage extends React.Component {
   render() {
     return (
       <Page
-        title="Dashboard "
-        breadcrumbs={[{ name: 'das-graph', active: true }]}
+        title="Raw Data Dashboard "
+        breadcrumbs={[{ name: 'Raw Data', active: true }]}
         className="TablePage"
       >
         <Row>
@@ -379,7 +379,7 @@ const genWeeklyData = () => {
   return {
     labels: Period,
     datasets: [{
-      label: 'Exercise',
+      label: 'Bad Posture',
       fill: true,
       lineTension: 0.1,
       backgroundColor: 'rgba(140,12,20,0.4)',
@@ -400,7 +400,7 @@ const genWeeklyData = () => {
       data: flex_c_list,
     },
       {
-        label: 'Stretches',
+        label: 'Good Posture',
         fill: true,
         lineTension: 0.1,
         backgroundColor: 'rgba(15,192,10,0.4)',
@@ -421,7 +421,7 @@ const genWeeklyData = () => {
         data: flex_l_list,
       },
       {
-        label: 'Walk',
+        label: 'Stretch',
         fill: true,
         lineTension: 0.1,
         backgroundColor: 'rgba(75,200,192,0.4)',
@@ -649,7 +649,7 @@ var weeklyChartOption = {
       },
       scaleLabel: {
         display: true,
-        labelString: 'Amount'
+        labelString: 'Minute'
       }
     }],
     xAxes: [{

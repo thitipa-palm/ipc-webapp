@@ -78,13 +78,13 @@ class Header extends React.Component {
     document.querySelector('.cr-sidebar').classList.toggle('cr-sidebar--open');
   };
 
-  dashboardButton = () =>{ 
-    return  <Redirect to="/" /> 
-  }
+  // dashboardButton = () =>{ 
+  //   return  <Redirect to="/" /> 
+  // }
 
-  rawdataButton = event => {
-    return  <Redirect to="/sample" /> 
-  };
+  // rawdataButton = event => {
+  //   return  <Redirect to="/sample" /> 
+  // };
 
   render() {
     const { isNotificationConfirmed } = this.state;
@@ -96,7 +96,7 @@ class Header extends React.Component {
             <MdClearAll size={25} />
           </Button>
         </Nav>
-        <Nav navbar className="mr-2">
+        {/* <Nav navbar className="mr-2">
           <Button color="primary" outline onClick={this.dashboardButton}>
             User Dashboard <Badge color="primary"></Badge>
           </Button>
@@ -105,7 +105,7 @@ class Header extends React.Component {
           <Button color="info" outline onClick={this.rawdataButton}>
             Raw Data <Badge color="info"></Badge>
           </Button>
-        </Nav>
+        </Nav> */}
 
         {/* Search bar */}
         {/* <Nav navbar>
@@ -164,7 +164,7 @@ class Header extends React.Component {
                   className="border-light"
                 >
                   <ListGroup flush>
-                    <ListGroupItem tag="button" action className="border-light">
+                    {/* <ListGroupItem tag="button" action className="border-light" href = '/ProfilePage.js'>
                       <MdPersonPin /> Profile
                     </ListGroupItem>
                     <ListGroupItem tag="button" action className="border-light">
@@ -172,7 +172,7 @@ class Header extends React.Component {
                     </ListGroupItem>
                     <ListGroupItem tag="button" action className="border-light">
                       <MdHelp /> Help
-                    </ListGroupItem>
+                    </ListGroupItem> */}
                     <ListGroupItem tag="button" action className="border-light">
                       <MdExitToApp /> Signout
                     </ListGroupItem>
