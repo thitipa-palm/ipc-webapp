@@ -59,6 +59,7 @@ import { getColor } from 'utils/colors';
 import {TablePage, genWeeklyData, weeklyChartOption} from 'pages/SamplePage';
 import {genIpcPieData} from 'pages/ChartPage';
 import firebase from '../firebase.js';
+import ButtonPage from 'pages/ButtonPage';
 
 const dbRef = firebase.database().ref();
 console.log(dbRef)
@@ -72,13 +73,17 @@ dbRef.child("sensor").get().then((snapshot) => {
   console.error(error);
 });
 
+// class ButtonPage extends React.Component{
+
+// }
+
 //Edit Todo list Data here//
 const ipctodosData = [
-  { id: 1, title: 'Stand up' },
-  { id: 2, title: 'Upper-body Stretch'},
-  { id: 3, title: 'Daily Walk'},
-  { id: 4, title: 'Go Jogging :)'},
-  { id: 5, title: 'Fix Your Posture '},
+  { id: 1, title: "Don't forget to stand up every 2 hours"},
+  { id: 2, title: 'Have you done your daily upper-body stretch? - Check the recommendation to see our tailored stretch for you.'},
+  { id: 3, title: "A good walk a day, keeps the doctor away!"},
+  { id: 4, title: "You should jogg at least 3 time this week. YOU CAN DO IT!"},
+  { id: 5, title: "Be mindfulness on your posture."},
 ];
 
 
@@ -95,6 +100,21 @@ class DashboardPage extends React.Component {
     window.scrollTo(0, 0);
   }
 
+  state = {
+    rSelected: null,
+    cSelected: [],
+  };
+  
+  onCheckboxBtnClick(selected) {
+    const index = this.state.cSelected.indexOf(selected);
+    if (index < 0) {
+      this.state.cSelected.push(selected);
+    } else {
+      this.state.cSelected.splice(index, 1);
+    }
+    this.setState({ cSelected: [...this.state.cSelected] });
+  }
+
   render() {
     const primaryColor = getColor('primary');
     const secondaryColor = getColor('secondary');
@@ -108,55 +128,95 @@ class DashboardPage extends React.Component {
         <Row>
         <Col md={12} sm={12} xs={12} className="mb-3">
           <Card className="flex-row">
-                <Col md={6} sm={6} xs={6} className="m-5">
+                <Col md={4} sm={6} xs={6} className="m-3">
                     <CardImg
                       className="card-img-left"
                       src={sit_img}
-                      style={{ width: 'auto', height: 350, display: 'block', margin: 'auto'}}
+                      style={{ width: 'auto', height: 300, display: 'block', margin: 'auto', marginBottom: '20px'}}
                     />
-                </Col>
-                
-                <Col md={6} sm={6} xs={6} className="m-3">
-                  <CardBody>
                     <CardTitle>
                       <h3 class="text-center">
-                        <strong>You are currently :</strong>
+                        <strong>You have been :</strong>
                       </h3>
                     </CardTitle>
                     <CardText>
                       <h1 class="text-center">
-                          <strong>Sitting</strong>
+                          <strong>Sitting</strong> 
                       </h1>
+                      <h4 class="text-center">for 4 hours</h4>
                     </CardText>
-                      <br></br>
-                      <br></br>
+                </Col>
+                
+                <Col md={8} sm={6} xs={6} className="m-5">
                   <Row>
-                    <Col md={10} sm={10} xs={10} className="m-3">
+                    <Col md={10} sm={10} xs={10} className="m-5">
                       <IconWidget
-                        bgColor={'success'}
-                        icon={MdThumbUp}
-                        title={<h4 class="text-center"> <strong> Very Good John </strong> </h4>}
-                        subtitle={<h5 class="text-center">  Good Posture!  </h5>}
+                        bgColor={'danger'}
+                        icon={MdThumbDown}
+                        title={<h3 class="text-center"> <strong> Sit too long </strong> </h3>}
+                        subtitle={<h4 class="text-center">You should try standing up and relax for 5 minutes.</h4>}
                       />
+                      <Card className="flex">
+                        <CardBody>
+                          <CardTitle><h4> <strong>Real time suggestion</strong></h4></CardTitle>
+                          <CardText>
+                          You have been stting for to long, that is unhealty for your lower back and blood circulation in
+                          your appendage. We suggest to try standing up and relax your body for at least 5 minutes. 
+                          </CardText>
+                        </CardBody>
+                      </Card>
                     </Col>
                   </Row>  
-                  </CardBody>
                 </Col>
-              
           </Card>
         </Col>
         </Row>
-        <Row>
-        <Col md={12} sm={12} xs={12} className="mb-3">
-          <Card className="flex-row">
-            <CardBody>
-              <CardTitle><h4> <strong>Real time suggestion</strong></h4></CardTitle>
-              <CardText>
-              Increase awareness of posture and ergonomics in everyday settings Becoming aware of posture and ergonomics at work,
-              at home, and at play is a vital step towards instilling good posture and ergonomic techniques.
-              </CardText>
-            </CardBody>
-          </Card>
+        
+        <Row> 
+        <Col lg="12" md="12" sm="12" xs="12">
+        <Card>
+        <CardHeader><h5><strong>Weekly Reminder</strong> </h5> <h6>This is generated base on your past 7 days activities. Here is what we suggest you to do in this week.</h6></CardHeader>
+          <CardBody>
+                <Col md={12}>
+                  <Row>
+                    <Col lg="6" md="12" sm="12" xs="12">
+                      <Button color="primary" size="lg" block
+                      onClick={() => this.onCheckboxBtnClick(1)}
+                      active={this.state.cSelected.includes(1)}>
+                      Don't forget to stand up every 2 hours
+                      </Button>
+                      <Button color="primary" size="lg" block
+                      onClick={() => this.onCheckboxBtnClick(2)}
+                      active={this.state.cSelected.includes(2)}>
+                      Have you done your daily upper-body stretch? - Check the recommendation to see our tailored stretch for you.
+                      </Button>
+                      <Button color="primary" size="lg" block
+                      onClick={() => this.onCheckboxBtnClick(3)}
+                      active={this.state.cSelected.includes(3)}>
+                      A good walk a day, keeps the doctor away!
+                      </Button>
+                    </Col>
+                    <Col lg="6" md="12" sm="12" xs="12">
+                      <Button color="primary" size="lg" block
+                      onClick={() => this.onCheckboxBtnClick(5)}
+                      active={this.state.cSelected.includes(5)} >
+                      Be mindfulness on your posture.
+                      </Button>
+                      <Button color="primary" size="lg" block
+                      onClick={() => this.onCheckboxBtnClick(6)}
+                      active={this.state.cSelected.includes(6)}>
+                      You should jogg at least 3 time this week. YOU CAN DO IT!
+                      </Button>
+                      <Button color="primary" size="lg" block
+                      onClick={() => this.onCheckboxBtnClick(7)}
+                      active={this.state.cSelected.includes(7)}>
+                      30 minutes of cardio can impove your overall health - Check the recommendation to see our tailored cardio for you.
+                      </Button>
+                    </Col>
+                  </Row>
+                </Col>
+          </CardBody>
+        </Card> 
         </Col>
         </Row>
 
@@ -278,14 +338,7 @@ class DashboardPage extends React.Component {
           </Row>
           </Card>
         </Col>  
-        </Row>  
-
-        <Row> 
-        <Col lg="12" md="12" sm="12" xs="12">
-        <CardHeader><h5><strong>To-Do List</strong></h5></CardHeader>
-            <TodosCard todos={ipctodosData} />
-          </Col>
-        </Row>
+        </Row> 
         
         <Row>
         <Col xl={12} lg={12} md={12}>
