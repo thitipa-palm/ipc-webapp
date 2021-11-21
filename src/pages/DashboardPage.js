@@ -135,9 +135,9 @@ class DashboardPage extends React.Component {
                       style={{ width: 'auto', height: 300, display: 'block', margin: 'auto', marginBottom: '20px'}}
                     />
                     <CardTitle>
-                      <h3 class="text-center">
+                      <h4 class="text-center">
                         <strong>You have been :</strong>
-                      </h3>
+                      </h4>
                     </CardTitle>
                     <CardText>
                       <h1 class="text-center">
@@ -158,7 +158,7 @@ class DashboardPage extends React.Component {
                       />
                       <Card className="flex">
                         <CardBody>
-                          <CardTitle><h4> <strong>Real time suggestion</strong></h4></CardTitle>
+                          <CardTitle><h4> <strong>Real time suggestion:</strong></h4></CardTitle>
                           <CardText>
                           You have been stting for to long, that is unhealty for your lower back and blood circulation in
                           your appendage. We suggest to try standing up and relax your body for at least 5 minutes. 
