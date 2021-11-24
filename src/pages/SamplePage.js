@@ -525,7 +525,7 @@ var loadchartOptions = {
       ticks: {
         beginAtZero: true,
         min: 0,
-        max: 300
+        max: 1000
       },
       scaleLabel: {
         display: true,
@@ -548,8 +548,8 @@ var accelchartOptions = {
     yAxes: [{
       ticks: {
         beginAtZero: true,
-        min: 10,
-        max: -10
+        min: -15,
+        max: 15
       },
       scaleLabel: {
         display: true,
@@ -572,8 +572,8 @@ var gyrochartOptions = {
     yAxes: [{
       ticks: {
         beginAtZero: true,
-        min: 1,
-        max: -1
+        min: -200,
+        max: 200
       },
       scaleLabel: {
         display: true,

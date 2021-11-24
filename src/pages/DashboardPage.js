@@ -175,42 +175,27 @@ class DashboardPage extends React.Component {
         <Row> 
         <Col lg="12" md="12" sm="12" xs="12">
         <Card>
-        <CardHeader><h5><strong>Weekly Reminder</strong> </h5> <h6>This is generated base on your past 7 days activities. Here is what we suggest you to do in this week.</h6></CardHeader>
+        <CardHeader><h5><strong>Today You Should...</strong> </h5> <h6>This is generated base on your past 7 days activities. Here is what we suggest you to do today.</h6></CardHeader>
           <CardBody>
                 <Col md={12}>
                   <Row>
                     <Col lg="6" md="12" sm="12" xs="12">
-                      <Button color="primary" size="lg" block
-                      onClick={() => this.onCheckboxBtnClick(1)}
-                      active={this.state.cSelected.includes(1)}>
-                      Don't forget to stand up every 2 hours
+                      <Button color="primary" size="lg" block active>
+                      <strong>Have a good walk at least 10 minutes.</strong>
                       </Button>
-                      <Button color="primary" size="lg" block
-                      onClick={() => this.onCheckboxBtnClick(2)}
-                      active={this.state.cSelected.includes(2)}>
-                      Have you done your daily upper-body stretch? - Check the recommendation to see our tailored stretch for you.
+                      <Button color="primary" size="lg" block active>
+                      <strong>Stretch your upper-body for 10 minutes</strong> <Badge color="success" pill className="mr-1">DONE</Badge><br></br> Check the recommendation to see our tailored stretch for you. 
                       </Button>
-                      <Button color="primary" size="lg" block
-                      onClick={() => this.onCheckboxBtnClick(3)}
-                      active={this.state.cSelected.includes(3)}>
-                      A good walk a day, keeps the doctor away!
+                      <Button color="primary" size="lg" block active>
+                      <strong>Jog at least 20 minutes</strong> <Badge color="success" pill className="mr-1">DONE</Badge>
                       </Button>
                     </Col>
                     <Col lg="6" md="12" sm="12" xs="12">
-                      <Button color="primary" size="lg" block
-                      onClick={() => this.onCheckboxBtnClick(5)}
-                      active={this.state.cSelected.includes(5)} >
-                      Be mindfulness on your posture.
+                      <Button color="warning" size="lg" block >
+                      <strong>Not hunch your back for more than 10 mins</strong> <Badge color="danger" pill className="mr-1">FAIL</Badge>
                       </Button>
-                      <Button color="primary" size="lg" block
-                      onClick={() => this.onCheckboxBtnClick(6)}
-                      active={this.state.cSelected.includes(6)}>
-                      You should jogg at least 3 time this week. YOU CAN DO IT!
-                      </Button>
-                      <Button color="primary" size="lg" block
-                      onClick={() => this.onCheckboxBtnClick(7)}
-                      active={this.state.cSelected.includes(7)}>
-                      30 minutes of cardio can impove your overall health - Check the recommendation to see our tailored cardio for you.
+                      <Button color="primary" size="lg" block active>
+                      <strong>Stand up and walk around every 2 hours</strong> <br></br>We notice that you've been stting for too long.
                       </Button>
                     </Col>
                   </Row>
@@ -221,7 +206,7 @@ class DashboardPage extends React.Component {
         </Row>
 
         <Row>
-        <Col xl={7} lg={12} md={12}>
+        <Col xl={6} lg={12} md={12}>
           <Card>
             <CardHeader><h5><strong>Today Summary</strong></h5></CardHeader>
             <CardBody>
@@ -230,22 +215,20 @@ class DashboardPage extends React.Component {
           </Card>
         </Col>
         
-        <Col xl={5} lg={12} md={12}>
+        <Col xl={6} lg={12} md={12}>
         <Card>
-        <CardHeader><h5><strong>Your Today Stats</strong></h5></CardHeader>
-          <Row>
-          <Col lg={12} md={12} sm={12} xs={12} className="mt-0">
+        <CardHeader><h5><strong>Your Today Stats</strong> </h5> </CardHeader>
+          <CardBody>
+          <Col className="mb-3">
           <IconWidget
             bgColor="white"
             inverse={false}
             icon={MdThumbUp}
             title="Good Posture"
-            subtitle="41%"
+            subtitle="74%"
           />
           </Col>
-          </Row>
-          <Row>
-          <Col lg={12} md={12} sm={12} xs={12} className="mt-3">
+          <Col lclassName="mb-3">
           <IconWidget
             bgColor="white"
             inverse={false}
@@ -254,19 +237,16 @@ class DashboardPage extends React.Component {
             subtitle="26%"
           />
           </Col>
-          </Row>
-          
-          <Row>
-              <Col lg={12} md={12} sm={12} xs={12} className="mt-3">
-                <IconWidget
-                  bgColor={'success'}
-                  icon={MdLightbulbOutline}
-                  title={<h4 class="text-center"> <strong> Nice posture! </strong> </h4>}
-                  subtitle={<h5 class="text-center">  You did good today  </h5>}
-                />
-              </Col>
-          </Row> 
-          </Card>
+          <Col className="mb-3">
+            <IconWidget
+              bgColor={'success'}
+              icon={MdLightbulbOutline}
+              title={<h4 class="text-center"> <strong> Nice posture! </strong> </h4>}
+              subtitle={<h5 class="text-center">  You did good today  </h5>}
+          />
+          </Col>
+          </CardBody>
+        </Card> 
         </Col>
         </Row>
 
@@ -279,15 +259,16 @@ class DashboardPage extends React.Component {
               </CardBody>
             </Card>
         </Col>
-        
-        <Col md="6" sm="12" xs="12">
+
+        <Col xl={6} lg={12} md={12}>
+
         <Card>
-        <CardHeader><h5><strong>Weekly Progress</strong></h5></CardHeader>
+        <CardHeader><h5><strong>Weekly Progress</strong></h5><h6>Base on World Health Organization Physical Activity Recommendations.</h6></CardHeader>
           <Row>
             <Col md="12" sm="12" xs="12">
             <NumberWidget
-              title="Stretches Done"
-              number="20 Minutes"
+              title="Walk"
+              number="100 Minutes"
               color="primary"
               progress={{
                 value: 75,
@@ -299,8 +280,8 @@ class DashboardPage extends React.Component {
           <Row>
           <Col md="12" sm="12" xs="12">
             <NumberWidget
-              title="Walk"
-              number="120 Minutes"
+              title="Run"
+              number="75 Minutes"
               color="info"
               progress={{
                 value: 40,
@@ -313,8 +294,8 @@ class DashboardPage extends React.Component {
           <Row>
           <Col md="12" sm="12" xs="12">
           <NumberWidget
-              title="Good Posture"
-              number="60%"
+              title="Stretch"
+              number="45 Minutes"
               color="success"
               progress={{
                 value: 60,
@@ -326,8 +307,8 @@ class DashboardPage extends React.Component {
           <Row>
           <Col md="12" sm="12" xs="12">
           <NumberWidget
-              title="Bad Posture"
-              number="40%"
+              title="Light Movement"
+              number="300 Minutes"
               color="danger"
               progress={{
                 value: 40,
@@ -337,12 +318,12 @@ class DashboardPage extends React.Component {
           </Col>
           </Row>
           </Card>
-        </Col>  
-        </Row> 
+          </Col>
+        </Row>
         
         <Row>
         <Col xl={12} lg={12} md={12}>
-        <CardHeader><h5><strong>Recommendations</strong></h5></CardHeader>
+        <CardHeader><h5><strong>Recommendations</strong></h5><h6>Base on your activity preference.</h6></CardHeader>
           <Card className="flex-row">
             <CardImg
               className="card-img-left"
