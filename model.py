@@ -1,25 +1,21 @@
-#Activity ID map
-activity_id = {1:'sit_straight', 2:'sit_hunch', 3:'stand_straight',
-              4:'stand_hunch', 5:'walk_straight', 6:'walk_hunch', 7:'run_straight',
-              8:'run_hunch', 9:'strech_L', 10:'strech_R', 11:'strech_C'}
-#Good Posture Activities: 
-goodposture_ac = [1,3,5,7,9,10,11]
-#Bad Posture Activities: 
-badposture_ac = [2,4,6,8]
+from numpy import loadtxt
+from keras.models import load_model
+from sklearn import preprocessing
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from sklearn.model_selection import cross_val_score, KFold, StratifiedKFold
+from keras.utils.np_utils import to_categorical
+import pandas as pd
+import numpy as np
+import json
 
-# Load data set containing all the data from csv
-from google.colab import drive #pipline require
-drive.mount('/content/gdrive')
-P_01_path = '/content/gdrive/My Drive/Senoir Project/SL1-2021/Dataset/main/P_01.csv'
-P_02_path = '/content/gdrive/My Drive/Senoir Project/SL1-2021/Dataset/main/P_02.csv'
-P_03_path = '/content/gdrive/My Drive/Senoir Project/SL1-2021/Dataset/main/P_03.csv'
+model = load_model('model_CNNLSTM.h5')
 
-ipc_maindf = pd.read_csv(P_01_path)
-P_02 = pd.read_csv(P_02_path)
-P_03 = pd.read_csv(P_03_path)
-ipc_maindf = ipc_maindf.append(P_02)
-ipc_maindf = ipc_maindf.append(P_03)
-
+#data prep
+P_01 = pd.read_csv('dataset/P_01.csv')
+P_02 = pd.read_csv('dataset/P_02.csv')
+P_03 = pd.read_csv('dataset/P_03.csv')
+ipc_maindf = pd.concat([P_01,P_02,P_03])
+ipc_maindf.reset_index(drop = True, inplace = True)
 sx = ipc_maindf.iloc[:,0:10]
 sy = ipc_maindf.iloc[:,10:11]
 sx = sx.values
@@ -55,60 +51,9 @@ for i1 in range(0, sx.shape[0], 1):
   else:
     x_all = np.append(x_all, x_mm_sen, axis=0)
 
-print(x_all.shape)
 
-####################### Model ########################
-n_steps = 10
-n_length = 5
-n_features = 10
-
-x = x_all
-# Input to models
-x1 = x_all # inputs of CNN, LSTM
-x2 = x_all.reshape((sx.shape[0], n_steps, n_length, n_features)) # inputs of CNN-LSTM
-x3 = x_all.reshape((sx.shape[0], n_steps, 1, n_length, n_features)) # inputs of ConvLSTM
-
-kf= 10
-kfold = StratifiedKFold(n_splits=kf, shuffle=True, random_state=10)
-accScores, preScores, recScores, f1Scores  = [], [], [], []
-for train, test in kfold.split(x, sy):
-  #Train data
-  #All data input
-  x_trainDL1 = x2[train, :, :, :]
-
-  #Test data
-  #All data input
-  x_testDL1 = x2[test, :, :, :]
-
-  y_train = y_all[train]
-  y_test = y_all[test]
-  y_train_one_hot = to_categorical(y_train)
-  
-  # input layer
-  visible1 = Input(shape=(None, x_trainDL1.shape[2], x_trainDL1.shape[3]))
-
-  # Ch1
-  conv11 = TimeDistributed(Conv1D(200, kernel_size=3, activation='relu', padding='same'))(visible1)
-  batch11 = TimeDistributed(BatchNormalization())(conv11)
-  pool11 = TimeDistributed(MaxPooling1D(pool_size=2, padding='same'))(batch11)
-  flat11 = TimeDistributed(Flatten())(pool11)
-  lstm11 = LSTM(200)(flat11)
-  dense11 = Dense(200, activation='relu')(lstm11)  
-  dense12 = Dense(100, activation='relu')(dense11)
-  output1 = Dense(11, activation='softmax')(dense12)
-  
-  model1 = Model(inputs=[visible1], outputs=output1)
-  opt = tf.keras.optimizers.Adam(learning_rate=0.001)
-  model1.compile(loss='categorical_crossentropy', optimizer=opt, metrics=['accuracy'])
-  #print(model1.summary())
-  history1 = model1.fit([x_trainDL1], y_train_one_hot, epochs=30, batch_size=64)
-  y_predict1 = np.argmax(model1.predict([x_testDL1]), axis=1)
-  accScores.append(accuracy_score(y_test, y_predict1, normalize=True))  
-  preScores.append(precision_score(y_test, y_predict1, average='macro'))  
-  recScores.append(recall_score(y_test, y_predict1, average='macro'))  
-  f1Scores.append(f1_score(y_test, y_predict1, average='macro'))  
-
-print('Accuracy: %.4f' %(sum(np.array(accScores))/kf))
-print('Precision: %.4f' %(sum(np.array(preScores))/kf))
-print('Recall: %.4f' %(sum(np.array(recScores))/kf))
-print('F1: %.4f' %(sum(np.array(f1Scores))/kf))
+#Data Split
+sX = x_all.iloc[xx,:]
+sY = y_all.iloc[xx,:]
+#prediction
+pred = np.argmax(model.predict([x_test]), axis=1)
